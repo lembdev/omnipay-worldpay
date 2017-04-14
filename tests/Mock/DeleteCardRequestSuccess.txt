@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Server: Windows NT 3.x
+Date: Fri, 15 Feb 2013 18:25:28 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 0
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+requestId: 5da91661-dc42-4443-b82d-ea5c89a01070
+Access-Control-Allow-Credentials: true
+Access-Control-Max-Age: 300

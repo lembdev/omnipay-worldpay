@@ -1,5 +1,5 @@
 {
-    "name": "lembdev/omnipay-wordpay",
+    "name": "lembdev/omnipay-worldpay",
     "description": "WorldPay JSON driver for the Omnipay PHP payment processing library",
     "keywords": [
         "gateway",
@@ -12,20 +12,21 @@
     ],
     "type": "library",
     "homepage": "https://github.com/lembdev/omnipay-worldpay",
-    "autoload": {
-        "psr-4": { "lembdev\\WorldPay\\" : "src/" }
-    },
-    "require": {
-        "omnipay/common": "^2.5"
-    },
-    "require-dev": {
-        "omnipay/tests": "^2.1"
-    },
     "license": "MIT",
     "authors": [
         {
             "name": "Alexander Vyzhanov",
             "email": "lembdev@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "php" : ">=5.5.0",
+        "omnipay/common": "^2.5"
+    },
+    "require-dev": {
+        "omnipay/tests": "^2.1"
+    },
+    "autoload": {
+        "psr-4": { "lembdev\\WorldPay\\" : "src/" }
+    }
 }

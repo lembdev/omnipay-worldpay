@@ -2,7 +2,7 @@
 /vendor
 
 # phpstorm project files
-.idea
+/.idea/
 
 # composer itself is not needed
 composer.phar
@@ -11,3 +11,7 @@ composer.lock
 
 # local phpunit config
 phpunit.xml
+
+.directory
+/dirlist.*
+/documents/
