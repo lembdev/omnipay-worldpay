@@ -83,7 +83,7 @@ class PurchaseRequest extends AbstractRequest
     {
         $this->validate('amount');
         $this->validate('currency');
-        $this->validate('token');
+        $this->validate('description');
         $this->validate('clientKey');
 
         $billingAddress = $this->getAddressArray('billing');
