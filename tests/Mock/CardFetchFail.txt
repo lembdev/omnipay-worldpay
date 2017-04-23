@@ -1,0 +1,19 @@
+HTTP/1.1 404 Not Found
+Server: Windows NT 3.x
+Date: Fri, 15 Feb 2013 18:25:28 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 995
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+requestId: req_8PDHeZazN2LwML
+Access-Control-Allow-Credentials: true
+Access-Control-Max-Age: 300
+
+{
+  "httpStatusCode": 404,
+  "customCode": "TKN_NOT_FOUND",
+  "message": "EXT_1: Token TESTING_TOKEN does not exist",
+  "description": "Token used with request does not exist, please create a new token",
+  "errorHelpUrl": null,
+  "originalRequest": "http://api.worldpay.com/v1/tokens/TESTING_TOKEN"
+}

@@ -13,43 +13,77 @@ class PurchaseRequestTest extends TestCase
     /** @var PurchaseRequest */
     protected $request;
 
-    public function setUp()
+    public function testSetters()
     {
-        $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize([
-            'amount'      => '10',
+        $this->initRequest([
+            'amount'      => '10.00',
             'currency'    => 'USD',
             'token'       => 'your-token',
             'description' => 'order-description'
         ]);
+
+        $this->assertEquals('ECOM', $this->request->getOrderType());
+        $this->request->setOrderType('RECURRING');
+        $this->assertEquals('RECURRING', $this->request->getOrderType());
+        try {
+            $this->request->setOrderType('INCORRECT');
+        } catch (\Exception $e) {
+            $this->getExpectedException();
+        }
     }
 
     public function testSendSuccess()
     {
-        $this->setMockHttpResponse('PurchaseRequestSuccess.txt');
+        $this->initRequest([
+            'amount'      => '10.00',
+            'currency'    => 'USD',
+            'token'       => 'your-token',
+            'description' => 'order-description'
+        ]);
+
+        $this->setMockHttpResponse('PurchaseSuccess.txt');
+
+        /** @var PurchaseResponse $response */
         $response = $this->request->send();
 
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
 
         $this->assertSame('TEST_RU_1239706c-7d15-4819-89cc-b409390a63e9', $response->getToken());
-        $this->assertSame('ObfuscatedCard', $response->getType());
-        $this->assertSame('VISA_CREDIT', $response->getCardType());
-        $this->assertSame($this->card->getName(), $response->getName());
-        $this->assertSame($this->card->getExpiryMonth(), $response->getExpiryMonth());
-        $this->assertSame($this->card->getExpiryYear(), $response->getExpiryYear());
-        $this->assertSame('**** **** **** 1111', $response->getMaskedCardNumber());
-        $this->assertSame('credit', $response->getCardClass());
-        $this->assertSame('NATWEST', $response->getCardIssuer());
-        $this->assertSame('CL Visa Credit Pers', $response->getCardProductTypeDescContactless());
-        $this->assertSame('Visa Credit Personal', $response->getCardProductTypeDescNonContactless());
-        $this->assertSame('VISA CREDIT', $response->getCardSchemeName());
-        $this->assertSame('consumer', $response->getCardSchemeType());
-        $this->assertSame('GB', $response->getCountryCode());
-        $this->assertSame(1, $response->getIssueNumber());
-        $this->assertSame(2, $response->getStartMonth());
-        $this->assertSame(2013, $response->getStartYear());
-        $this->assertFalse($response->getPrepaid());
-        $this->assertFalse($response->getReusable());
+
+        $this->assertEquals(2, $response->getAmount());
+        $this->assertEquals(2, $response->getCard()->getExpiryMonth());
+        $this->assertEquals(2025, $response->getCard()->getExpiryYear());
+        $this->assertEquals('Example User', $response->getCard()->getName());
+        $this->assertEquals(1111, $response->getCard()->getNumberLastFour());
+        $this->assertEquals(2, $response->getCard()->getStartMonth());
+        $this->assertEquals(2013, $response->getCard()->getStartYear());
+    }
+
+    public function testSendFail()
+    {
+        $this->initRequest([
+            'amount'      => '10.00',
+            'currency'    => 'USD',
+            'token'       => 'your-token',
+            'description' => 'order-description'
+        ]);
+        $this->setMockHttpResponse('PurchaseFail.txt');
+
+        /** @var PurchaseResponse $response */
+        $response = $this->request->send();
+
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertEquals('TKN_NOT_FOUND', $response->getCode());
+        $this->assertNull($response->getCard());
+    }
+    
+    protected function initRequest(array $options)
+    {
+        $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $this->request->initialize(array_merge($options, [
+            'clientKey' => 'test_client_key',
+        ]));
     }
 }

@@ -42,12 +42,12 @@ namespace lembdev\WorldPay\Message;
  *   }
  * </code>
  *
- * @method CreateCardResponse send()
+ * @method CardCreateResponse send()
  *
  * @see  CreateCustomerRequest
  * @link https://stripe.com/docs/api#create_card
  */
-class CreateCardRequest extends AbstractRequest
+class CardCreateRequest extends AbstractRequest
 {
     protected $endpointUri = '/tokens';
 
@@ -93,7 +93,7 @@ class CreateCardRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        return $this->createRequest(CreateCardResponse::class, $data);
+        return $this->createRequest(CardCreateResponse::class, $data);
     }
 
     /**

@@ -11,6 +11,7 @@ Access-Control-Max-Age: 300
 
 {
   "token": "TEST_RU_1239706c-7d15-4819-89cc-b409390a63e9",
+  "reusable": "false",
   "paymentMethod": {
     "type": "ObfuscatedCard",
     "name": "Example User",
@@ -29,6 +30,5 @@ Access-Control-Max-Age: 300
     "cardProductTypeDescNonContactless": "Visa Credit Personal",
     "cardProductTypeDescContactless": "CL Visa Credit Pers",
     "prepaid": "false"
-  },
-  "reusable": "false"
+  }
 }

@@ -6,16 +6,24 @@
 
 namespace lembdev\WorldPay\Message;
 
-class DeleteCardRequest extends AbstractRequest
+/**
+ * Class CardFetchRequest
+ *
+ * @method CardFetchResponse send()
+ */
+class CardFetchRequest extends AbstractRequest
 {
     protected $endpointUri = '/tokens';
 
     /**
      * @inheritdoc
      * @return null
+     * @throws \Omnipay\Common\Exception\InvalidRequestException
      */
     public function getData()
     {
+        $this->validate('token');
+
         return null;
     }
 
@@ -32,7 +40,7 @@ class DeleteCardRequest extends AbstractRequest
      */
     public function getHttpMethod()
     {
-        return 'DELETE';
+        return 'GET';
     }
 
     /**
@@ -45,6 +53,6 @@ class DeleteCardRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        return $this->createRequest(EmptyResponse::class, $data);
+        return $this->createRequest(CardFetchResponse::class, $data);
     }
 }

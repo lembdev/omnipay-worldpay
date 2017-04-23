@@ -7,6 +7,7 @@
 namespace lembdev\WorldPay\Message;
 
 use Guzzle\Common\Exception\InvalidArgumentException;
+use lembdev\WorldPay\Helpers\CountryHelper;
 use Omnipay\Common\CreditCard;
 
 class PurchaseRequest extends AbstractRequest
@@ -19,21 +20,9 @@ class PurchaseRequest extends AbstractRequest
      * @return string
      * @throws \Guzzle\Common\Exception\InvalidArgumentException
      */
-    protected static function getCountryCodeByName($country)
+    protected static function getCountryCodeByName($country = null)
     {
-        if (!$country) {
-            return null;
-        }
-
-        $countries = include __DIR__ . '/../country_iso_code.php';
-
-        $countryCode = array_search($country, $countries, true);
-
-        if (!$countryCode) {
-            throw new InvalidArgumentException('Incorrect country or country code not found');
-        }
-
-        return $countryCode;
+        return CountryHelper::getCodeByCountry($country);
     }
 
     /**
@@ -104,7 +93,7 @@ class PurchaseRequest extends AbstractRequest
             'name'                => $this->getCard()->getName(),
             'customerOrderCode'   => null, // TODO
             'shopperEmailAddress' => null, // TODO
-            'shopperIpAddress'    => null, // TODO
+            'shopperIpAddress'    => $this->getClientIpAddress(),
             'shopperSessionId'    => null, // TODO
         ];
 
@@ -142,10 +131,6 @@ class PurchaseRequest extends AbstractRequest
      */
     protected function getAddressArray($target)
     {
-        if (!in_array($target, ['billing', 'delivery', ''], true)) {
-            throw new InvalidArgumentException('target must be one of this: \'billing\', \'delivery\'');
-        }
-
         $target = $target === 'delivery' ? 'Shipping' : ucfirst($target);
 
         $card = $this->getCard();
@@ -168,5 +153,23 @@ class PurchaseRequest extends AbstractRequest
         }
 
         return $data;
+    }
+
+    /**
+     * Client IP address
+     *
+     * @return string
+     */
+    protected function getClientIpAddress()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            return $_SERVER['HTTP_CLIENT_IP'];
+        }
+
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+
+        return $_SERVER['REMOTE_ADDR'];
     }
 }

@@ -19,10 +19,27 @@ class GatewayTest extends GatewayTestCase
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
     }
 
-//    public function testPurchase()
-//    {
-//        $request = $this->gateway->purchase(['amount' => '10.00']);
-//        $this->assertInstanceOf(Message\PurchaseRequest::class, $request);
-//        $this->assertSame('10.00', $request->getAmount());
-//    }
+    public function testCardCreate()
+    {
+        $request = $this->gateway->createCard();
+        $this->assertInstanceOf(Message\CardCreateRequest::class, $request);
+    }
+
+    public function testCardDelete()
+    {
+        $request = $this->gateway->deleteCard();
+        $this->assertInstanceOf(Message\CardDeleteRequest::class, $request);
+    }
+
+    public function testCardFetch()
+    {
+        $request = $this->gateway->fetchCard();
+        $this->assertInstanceOf(Message\CardFetchRequest::class, $request);
+    }
+
+    public function testPurchase()
+    {
+        $request = $this->gateway->purchase();
+        $this->assertInstanceOf(Message\PurchaseRequest::class, $request);
+    }
 }

@@ -6,6 +6,8 @@
 
 namespace lembdev\WorldPay\Message;
 
+use ErrorException;
+
 abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 {
     /**
@@ -22,7 +24,7 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
      */
     public function isSuccessful()
     {
-        return !array_key_exists('httpStatusCode', $this->data) || $this->data['httpStatusCode'] === 200;
+        return $this->data['httpStatusCode'] === 200;
     }
 
     /**
@@ -48,7 +50,9 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
      */
     public function getCode()
     {
-        return $this->getResponseKey('customCode');
+        return isset($this->data['customCode'])
+            ? $this->data['customCode']
+            : $this->getResponseKey('customCode');
     }
 
     /**
@@ -79,16 +83,24 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
      *
      * @param string     $key     name of the array element
      * @param mixed      $default the default value to be returned if the specified array key does not exist.
-     * @param array|null $array   array to extract value from. Default to $this->data
      *
      * @return mixed|null
      */
-    protected function getResponseKey($key, $default = null, $array = null)
+    protected function getResponseKey($key, $default = null)
     {
         if (!$this->isSuccessful()) {
             return $default;
         }
 
+        try {
+            return $this->retrieveResponseKey($key);
+        } catch (ErrorException $e) {
+            return $default;
+        }
+    }
+
+    protected function retrieveResponseKey($key, array $array = null)
+    {
         $array = $array ?: $this->data;
 
         if (array_key_exists($key, $array)) {
@@ -96,14 +108,14 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         }
 
         if (($pos = strrpos($key, '.')) !== false) {
-            $array = $this->getResponseKey(substr($key, 0, $pos), $default, $array);
+            $array = $this->retrieveResponseKey(substr($key, 0, $pos), $array);
             $key = substr($key, $pos + 1);
         }
 
-        if (is_array($array)) {
-            return array_key_exists($key, $array) ? $array[$key] : $default;
+        if (is_array($array) && array_key_exists($key, $array)) {
+            return $array[$key];
         }
 
-        return $default;
+        throw new ErrorException('Unknown key: ' . $key);
     }
 }

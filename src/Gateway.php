@@ -6,12 +6,10 @@
 
 namespace lembdev\WorldPay;
 
-use lembdev\WorldPay\Message\AuthorizeRequest;
-use lembdev\WorldPay\Message\CaptureRequest;
+use lembdev\WorldPay\Message\CardDeleteRequest;
+use lembdev\WorldPay\Message\CardFetchRequest;
 use lembdev\WorldPay\Message\PurchaseRequest;
-use lembdev\WorldPay\Message\CreateCardRequest;
-use lembdev\WorldPay\Message\RefundRequest;
-use lembdev\WorldPay\Message\VoidRequest;
+use lembdev\WorldPay\Message\CardCreateRequest;
 use Omnipay\Common\AbstractGateway;
 
 /**
@@ -165,25 +163,30 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * Create Card.
-     *
-     * This call can be used to create a new customer or add a card
-     * to an existing customer.  If a customerReference is passed in then
-     * a card is added to an existing customer.  If there is no
-     * customerReference passed in then a new customer is created.  The
-     * response in that case will then contain both a customer token
-     * and a card token, and is essentially the same as CreateCustomerRequest
-     *
+     * @inheritdoc
+     */
+    public function createCard(array $parameters = array())
+    {
+        return $this->createRequest(CardCreateRequest::class, $parameters);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function deleteCard(array $parameters = array())
+    {
+        return $this->createRequest(CardDeleteRequest::class, $parameters);
+    }
+
+    /**
      * @param array $parameters
      *
      * @return \Omnipay\Common\Message\RequestInterface
      */
-    public function createCard(array $parameters = array())
+    public function fetchCard(array $parameters = array())
     {
-        return $this->createRequest(CreateCardRequest::class, $parameters);
+        return $this->createRequest(CardFetchRequest::class, $parameters);
     }
-
-
 
 //    /**
 //     * Create an authorization request.

@@ -1,0 +1,34 @@
+HTTP/1.1 200 OK
+Server: Windows NT 3.x
+Date: Fri, 15 Feb 2013 18:25:28 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 995
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+requestId: req_8PDHeZazN2LwML
+Access-Control-Allow-Credentials: true
+Access-Control-Max-Age: 300
+
+{
+   "token": "TESTING_TOKEN",
+   "reusable": true,
+   "paymentMethod": {
+      "type" : "ObfuscatedCard",
+      "name": "name",
+      "expiryMonth": 2,
+      "expiryYear": 2015,
+      "issueNumber": 1,
+      "startMonth": 2,
+      "startYear": 2013,
+      "cardType": "VISA_CREDIT",
+      "maskedCardNumber": "xxxx xxxx xxxx 1111",
+      "cardSchemeType": "consumer",
+      "cardSchemeName": "VISA CREDIT",
+      "cardProductTypeDescNonContactless": "Visa Credit Personal",
+      "cardProductTypeDescContactless": "CL Visa Credit Pers",
+      "cardIssuer": "LLOYDS BANK PLC",
+      "countryCode": "GBR",
+      "cardClass": "credit",
+      "prepaid": "false"
+   }
+}

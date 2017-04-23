@@ -97,7 +97,10 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         $this->httpClient->getEventDispatcher()->addListener(
             'request.error',
             function ($event) {
-                if ($event['response']->isClientError()) {
+                /** @var $event \Symfony\Component\EventDispatcher\Event */
+                /** @var $response \Guzzle\Http\Message\Response */
+                $response = $event['response'];
+                if ($response->isClientError()) {
                     $event->stopPropagation();
                 }
             }
@@ -127,6 +130,8 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
             // Fix error json_decode empty string
             $httpResponseData = (string) $httpResponse->getBody() ? $httpResponse->json() : [];
+
+            $httpResponseData['httpStatusCode'] = $httpResponse->getStatusCode();
 
             $this->response = new $responseClass($this, $httpResponseData);
 
