@@ -1,5 +1,9 @@
 # Omnipay: WorldPay
 
+[![Build Status](https://travis-ci.org/thephpleague/omnipay-stripe.png?branch=master)](https://travis-ci.org/lembdev/omnipay-worldpay)
+[![Latest Stable Version](https://poser.pugx.org/lembdev/omnipay-worldpay/v/stable)](https://packagist.org/packages/lembdev/omnipay-worldpay)
+[![Total Downloads](https://poser.pugx.org/lembdev/omnipay-worldpay/downloads)](https://packagist.org/packages/lembdev/omnipay-worldpay)
+
 **WorldPay JSON driver for the Omnipay PHP payment processing library**
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
