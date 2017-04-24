@@ -20,7 +20,6 @@
         }
     ],
     "require": {
-        "php" : ">=5.5.0",
         "omnipay/common": "^2.5"
     },
     "require-dev": {
