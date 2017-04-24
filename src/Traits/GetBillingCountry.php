@@ -29,6 +29,6 @@ trait GetBillingCountry
     public function getBillingCountry()
     {
         $code = $this->getBillingCountryCode();
-        return CountryHelper::getCodeByCountry($code);
+        return CountryHelper::getCountryByCode($code);
     }
 }

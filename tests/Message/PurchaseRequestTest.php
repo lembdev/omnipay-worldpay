@@ -51,13 +51,11 @@ class PurchaseRequestTest extends TestCase
 
         $this->assertSame('TEST_RU_1239706c-7d15-4819-89cc-b409390a63e9', $response->getToken());
 
-        $this->assertEquals(2, $response->getAmount());
+        $this->assertEquals(500, $response->getAmount());
         $this->assertEquals(2, $response->getCard()->getExpiryMonth());
-        $this->assertEquals(2025, $response->getCard()->getExpiryYear());
+        $this->assertEquals(2015, $response->getCard()->getExpiryYear());
         $this->assertEquals('Example User', $response->getCard()->getName());
         $this->assertEquals(1111, $response->getCard()->getNumberLastFour());
-        $this->assertEquals(2, $response->getCard()->getStartMonth());
-        $this->assertEquals(2013, $response->getCard()->getStartYear());
     }
 
     public function testSendFail()
@@ -81,6 +79,7 @@ class PurchaseRequestTest extends TestCase
     
     protected function initRequest(array $options)
     {
+        $_SERVER['REMOTE_ADDR'] = '254.254.254.254';
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize(array_merge($options, [
             'clientKey' => 'test_client_key',

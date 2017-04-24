@@ -11,7 +11,7 @@ Access-Control-Max-Age: 300
 
 {
     "orderCode": "worldpay-order-code",
-    "token" : "your-token",
+    "token" : "TEST_RU_1239706c-7d15-4819-89cc-b409390a63e9",
     "orderDescription" : "your-order-description",
     "amount" : 500,
     "currencyCode" : "GBP",
@@ -19,7 +19,7 @@ Access-Control-Max-Age: 300
     "paymentStatus": "SUCCESS",
     "paymentResponse": {
         "type": "ObfuscatedCard",
-        "name": "name",
+        "name": "Example User",
         "expiryMonth": 2,
         "expiryYear": 2015,
         "cardType": "VISA_CREDIT",
