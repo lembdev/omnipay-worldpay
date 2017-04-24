@@ -129,7 +129,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             )->send();
 
             // Fix error json_decode empty string
-            $httpResponseData = (string) $httpResponse->getBody() ? $httpResponse->json() : [];
+            $httpResponseData = (string)$httpResponse->getBody() ? $httpResponse->json() : [];
 
             $httpResponseData['httpStatusCode'] = $httpResponse->getStatusCode();
 
@@ -194,7 +194,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      */
     protected function arrayFilter(array $array)
     {
-        return array_filter($array, function($v) {
+        return array_filter($array, function ($v) {
             return $v !== null;
         });
     }
