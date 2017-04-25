@@ -16,10 +16,8 @@ class CardFetchRequestTest extends TestCase
     public function setUp()
     {
         $this->request = new CardFetchRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize([
-            'token'     => 'TESTING_TOKEN',
-            'clientKey' => 'test_client_key',
-        ]);
+        $this->request->setToken('TESTING_TOKEN');
+        $this->request->setServiceKey('test_service_key');
     }
 
     public function testSendSuccess()

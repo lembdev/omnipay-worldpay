@@ -20,10 +20,8 @@ class CardDeleteRequestTest extends TestCase
     public function setUp()
     {
         $this->request = new CardDeleteRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize([
-            'clientKey' => 'test_client_key',
-            'token'     => 'token-to-delete',
-        ]);
+        $this->request->setServiceKey('test_service_key');
+        $this->request->setToken('token-to-delete');
     }
 
     public function testSendSuccess()

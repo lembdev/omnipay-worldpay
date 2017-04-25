@@ -117,8 +117,7 @@ class PurchaseRequestTest extends TestCase
     {
         $_SERVER['REMOTE_ADDR'] = '254.254.254.254';
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize(array_merge($options, [
-            'clientKey' => 'test_client_key',
-        ]));
+        $this->request->initialize($options);
+        $this->request->setServiceKey('test_service_key');
     }
 }

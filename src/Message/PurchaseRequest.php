@@ -71,7 +71,7 @@ class PurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('amount', 'currency', 'description', 'clientKey');
+        $this->validate('serviceKey', 'amount', 'currency', 'description');
 
         $token = $this->parameters->get('token');
         $card = $this->parameters->get('card');
@@ -129,11 +129,8 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * Send the request with specified data
-     *
-     * @param  mixed $data The data to send
-     *
-     * @return AbstractResponse
+     * @inheritdoc
+     * @return PurchaseResponse|AbstractResponse
      * @throws \Omnipay\Common\Exception\InvalidResponseException
      */
     public function sendData($data)

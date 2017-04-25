@@ -6,6 +6,6 @@
 
 namespace lembdev\WorldPay\Message;
 
-class EmptyResponse extends AbstractResponse
+class CardDeleteResponse extends AbstractResponse
 {
 }

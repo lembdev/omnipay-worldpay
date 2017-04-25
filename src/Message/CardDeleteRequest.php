@@ -17,7 +17,7 @@ class CardDeleteRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('token');
+        $this->validate('serviceKey', 'token');
 
         return null;
     }
@@ -39,15 +39,12 @@ class CardDeleteRequest extends AbstractRequest
     }
 
     /**
-     * Send the request with specified data
-     *
-     * @param  mixed $data The data to send
-     *
-     * @return AbstractResponse
+     * @inheritdoc
+     * @return CardDeleteResponse|AbstractResponse
      * @throws \Omnipay\Common\Exception\InvalidResponseException
      */
     public function sendData($data)
     {
-        return $this->createRequest(EmptyResponse::class, $data);
+        return $this->createRequest(CardDeleteResponse::class, $data);
     }
 }

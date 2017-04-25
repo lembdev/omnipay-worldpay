@@ -28,11 +28,9 @@ class CardCreateRequestTest extends TestCase
         ]);
 
         $this->request = new CardCreateRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize([
-            'clientKey' => 'test_client_key',
-            'card'      => $this->card,
-            'reusable'  => false
-        ]);
+        $this->request->setClientKey('test_client_key');
+        $this->request->setCard($this->card);
+        $this->request->setReusable(false);
     }
 
     public function testSendSuccess()

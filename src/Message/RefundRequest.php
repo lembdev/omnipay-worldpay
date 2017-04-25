@@ -42,10 +42,11 @@ class RefundRequest extends AbstractRequest
 
     /**
      * @inheritdoc
+     * @return RefundResponse|AbstractResponse
      * @throws \Omnipay\Common\Exception\InvalidResponseException
      */
     public function sendData($data)
     {
-        return $this->createRequest(EmptyResponse::class, $data);
+        return $this->createRequest(RefundResponse::class, $data);
     }
 }

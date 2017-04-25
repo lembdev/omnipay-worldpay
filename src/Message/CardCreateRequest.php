@@ -59,8 +59,7 @@ class CardCreateRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('card');
-        $this->validate('clientKey');
+        $this->validate('clientKey', 'card');
 
         $this->getCard()->validate();
 
@@ -84,11 +83,8 @@ class CardCreateRequest extends AbstractRequest
     }
 
     /**
-     * Send the request with specified data
-     *
-     * @param  mixed $data The data to send
-     *
-     * @return AbstractResponse
+     * @inheritdoc
+     * @return CardCreateResponse|AbstractResponse
      * @throws \Omnipay\Common\Exception\InvalidResponseException
      */
     public function sendData($data)
