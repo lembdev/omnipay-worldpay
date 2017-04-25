@@ -6,9 +6,19 @@
 
 namespace lembdev\WorldPay\Message;
 
-class CardDeleteRequest extends AbstractRequest
+class RefundRequest extends AbstractRequest
 {
-    protected $endpointUri = '/tokens';
+    protected $endpointUri = '/orders';
+
+    public function getOrderCode()
+    {
+        return $this->getParameter('orderCode');
+    }
+
+    public function setOrderCode($orderCode)
+    {
+        return $this->setParameter('orderCode', $orderCode);
+    }
 
     /**
      * @inheritdoc
@@ -17,7 +27,7 @@ class CardDeleteRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('token');
+        $this->validate('serviceKey', 'orderCode');
 
         return null;
     }
@@ -27,23 +37,11 @@ class CardDeleteRequest extends AbstractRequest
      */
     public function getEndpoint()
     {
-        return parent::getEndpoint() . '/' . $this->getToken();
+        return parent::getEndpoint() . '/' . $this->getOrderCode() . '/refund';
     }
 
     /**
      * @inheritdoc
-     */
-    public function getHttpMethod()
-    {
-        return 'DELETE';
-    }
-
-    /**
-     * Send the request with specified data
-     *
-     * @param  mixed $data The data to send
-     *
-     * @return AbstractResponse
      * @throws \Omnipay\Common\Exception\InvalidResponseException
      */
     public function sendData($data)

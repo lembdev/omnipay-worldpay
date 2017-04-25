@@ -6,10 +6,11 @@
 
 namespace lembdev\WorldPay;
 
+use lembdev\WorldPay\Message\CardCreateRequest;
 use lembdev\WorldPay\Message\CardDeleteRequest;
 use lembdev\WorldPay\Message\CardFetchRequest;
 use lembdev\WorldPay\Message\PurchaseRequest;
-use lembdev\WorldPay\Message\CardCreateRequest;
+use lembdev\WorldPay\Message\RefundRequest;
 use Omnipay\Common\AbstractGateway;
 
 /**
@@ -77,8 +78,8 @@ use Omnipay\Common\AbstractGateway;
  *
  * Setting the testMode flag on this gateway has no effect.
  *
- * @see \Omnipay\Common\AbstractGateway
- * @see \lembdev\WorldPay\Message\AbstractRequest
+ * @see  \Omnipay\Common\AbstractGateway
+ * @see  \lembdev\WorldPay\Message\AbstractRequest
  * @link https://developer.worldpay.com/jsonapi/api
  */
 class Gateway extends AbstractGateway
@@ -149,13 +150,8 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * Create a purchase request.
-     *
-     * @link https://developer.worldpay.com/jsonapi/docs/make-payment
-     *
-     * @param array $parameters
-     *
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @inheritdoc
+     * @return PurchaseRequest|\Omnipay\Common\Message\AbstractRequest
      */
     public function purchase(array $parameters = [])
     {
@@ -164,16 +160,18 @@ class Gateway extends AbstractGateway
 
     /**
      * @inheritdoc
+     * @return CardCreateRequest|\Omnipay\Common\Message\AbstractRequest
      */
-    public function createCard(array $parameters = array())
+    public function createCard(array $parameters = [])
     {
         return $this->createRequest(CardCreateRequest::class, $parameters);
     }
 
     /**
      * @inheritdoc
+     * @return CardDeleteRequest|\Omnipay\Common\Message\AbstractRequest
      */
-    public function deleteCard(array $parameters = array())
+    public function deleteCard(array $parameters = [])
     {
         return $this->createRequest(CardDeleteRequest::class, $parameters);
     }
@@ -181,9 +179,9 @@ class Gateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Common\Message\RequestInterface
+     * @return CardFetchRequest|\Omnipay\Common\Message\AbstractRequest
      */
-    public function fetchCard(array $parameters = array())
+    public function fetchCard(array $parameters = [])
     {
         return $this->createRequest(CardFetchRequest::class, $parameters);
     }
@@ -204,7 +202,7 @@ class Gateway extends AbstractGateway
 //    {
 //        return $this->createRequest(AuthorizeRequest::class, $parameters);
 //    }
-//
+
 //    /**
 //     * Void an authorization.
 //     *
@@ -220,7 +218,7 @@ class Gateway extends AbstractGateway
 //    {
 //        return $this->createRequest(VoidRequest::class, $parameters);
 //    }
-//
+
 //    /**
 //     * Capture an authorization.
 //     *
@@ -238,18 +236,14 @@ class Gateway extends AbstractGateway
 //    {
 //        return $this->createRequest(CaptureRequest::class, $parameters);
 //    }
-//
-//    /**
-//     * Refund a Sale Transaction
-//     *
-//     * @link https://developer.worldpay.com/jsonapi/docs/refunds
-//     *
-//     * @param array $parameters
-//     *
-//     * @return \lembdev\WorldPay\Message\RefundRequest
-//     */
-//    public function refund(array $parameters = [])
-//    {
-//        return $this->createRequest(RefundRequest::class, $parameters);
-//    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return @return RefundRequest|\Omnipay\Common\Message\AbstractRequest
+     */
+    public function refund(array $parameters = [])
+    {
+        return $this->createRequest(RefundRequest::class, $parameters);
+    }
 }

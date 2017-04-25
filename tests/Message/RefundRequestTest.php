@@ -9,26 +9,21 @@ namespace lembdev\WorldPay\Message;
 use Omnipay\Common\CreditCard;
 use Omnipay\Tests\TestCase;
 
-class CardDeleteRequestTest extends TestCase
+class RefundRequestTest extends TestCase
 {
-    /** @var CardDeleteRequest */
+    /** @var RefundRequest */
     protected $request;
-
-    /** @var CreditCard */
-    protected $card;
 
     public function setUp()
     {
-        $this->request = new CardDeleteRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize([
-            'clientKey' => 'test_client_key',
-            'token'     => 'token-to-delete',
-        ]);
+        $this->request = new RefundRequest($this->getHttpClient(), $this->getHttpRequest());
+        $this->request->setServiceKey('test_service_key');
+        $this->request->setOrderCode('TEST_ORDER_CODE');
     }
 
     public function testSendSuccess()
     {
-        $this->setMockHttpResponse('CardDeleteSuccess.txt');
+        $this->setMockHttpResponse('RefundSuccess.txt');
         $response = $this->request->send();
 
         $this->assertTrue($response->isSuccessful());
@@ -37,11 +32,11 @@ class CardDeleteRequestTest extends TestCase
 
     public function testSendFail()
     {
-        $this->setMockHttpResponse('CardDeleteFail.txt');
+        $this->setMockHttpResponse('RefundFail.txt');
         $response = $this->request->send();
 
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
-        $this->assertEquals('EXT_1: Token T9390a63e9 does not exist', $response->getMessage());
+        $this->assertEquals('BAD_REQUEST', $response->getCode());
     }
 }
