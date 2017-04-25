@@ -9,6 +9,7 @@ namespace lembdev\WorldPay\Message;
 use Guzzle\Common\Exception\InvalidArgumentException;
 use lembdev\WorldPay\Helpers\CountryHelper;
 use Omnipay\Common\CreditCard;
+use Omnipay\Common\Exception\InvalidRequestException;
 
 class PurchaseRequest extends AbstractRequest
 {
@@ -70,10 +71,14 @@ class PurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('amount');
-        $this->validate('currency');
-        $this->validate('description');
-        $this->validate('clientKey');
+        $this->validate('amount', 'currency', 'description', 'clientKey');
+
+        $token = $this->parameters->get('token');
+        $card = $this->parameters->get('card');
+
+        if (!$token && !$card) {
+            throw new InvalidRequestException('The token or paymentMethod parameter is required');
+        }
 
         $billingAddress = $this->getAddressArray('billing');
         $billingAddress = $this->arrayFilter($billingAddress);
@@ -84,7 +89,6 @@ class PurchaseRequest extends AbstractRequest
         $data = [
             'billingAddress'      => $billingAddress ?: null,
             'deliveryAddress'     => $deliveryAddress ?: null,
-            'token'               => $this->getToken(),
             'orderType'           => $this->getOrderType(),
             'amount'              => (int)$this->getAmount() * 100,
             'currencyCode'        => $this->getCurrency(),
@@ -96,6 +100,22 @@ class PurchaseRequest extends AbstractRequest
             'shopperIpAddress'    => $this->getClientIpAddress(),
             'shopperSessionId'    => null, // TODO
         ];
+
+        if ($token) {
+            $data['token'] = $this->getToken();
+        } else {
+            $data['paymentMethod'] = $this->arrayFilter([
+                'type'        => 'Card',
+                'name'        => $this->getCard()->getName(),
+                'expiryMonth' => $this->getCard()->getExpiryMonth(),
+                'expiryYear'  => $this->getCard()->getExpiryYear(),
+                'issueNumber' => $this->getCard()->getIssueNumber(),
+                'startMonth'  => $this->getCard()->getStartMonth(),
+                'startYear'   => $this->getCard()->getStartYear(),
+                'cardNumber'  => $this->getCard()->getNumber(),
+                'cvc'         => $this->getCard()->getCvv()
+            ]);
+        }
 
         return $this->arrayFilter($data);
     }

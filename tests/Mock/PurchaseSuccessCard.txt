@@ -1,0 +1,58 @@
+HTTP/1.1 200 OK
+Server: Windows NT 3.x
+Date: Fri, 15 Feb 2013 18:25:28 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 995
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+requestId: req_8PDHeZazN2LwML
+Access-Control-Allow-Credentials: true
+Access-Control-Max-Age: 300
+
+{
+   "orderCode":"worldpay-order-code",
+   "token":"TEST_RU_1239706c-7d15-4819-89cc-b409390a63e9",
+   "orderDescription":"your-order-description",
+   "amount":500,
+   "currencyCode":"GBP",
+   "customerOrderCode":"my-customer-order-code",
+   "paymentStatus":"SUCCESS",
+   "paymentResponse":{
+      "type":"ObfuscatedCard",
+      "name":"Example User",
+      "expiryMonth":2,
+      "expiryYear":2020,
+      "cardType":"VISA_CREDIT",
+      "maskedCardNumber":"**** **** **** 1111",
+      "billingAddress":{
+         "address1":"18 Linver Road",
+         "postalCode":"SW6 3RB",
+         "city":"London",
+         "countryCode":"GB"
+      },
+      "cardSchemeType":"consumer",
+      "cardSchemeName":"VISA CREDIT",
+      "cardIssuer":"LLOYDS BANK PLC",
+      "countryCode":"GB",
+      "cardClass":"credit",
+      "cardProductTypeDescNonContactless":"unknown",
+      "cardProductTypeDescContactless":"unknown",
+      "prepaid":"false"
+   },
+   "deliveryAddress":{
+      "firstName":"John",
+      "lastName":"Smith",
+      "address1":"address1",
+      "address2":"address2",
+      "address3":"address3",
+      "postalCode":"postCode",
+      "city":"Reading",
+      "state":"Berkshire",
+      "countryCode":"GB"
+   },
+   "shopperEmailAddress":"name@domain.co.uk",
+   "environment":"TEST",
+   "riskScore":{
+      "value":"1"
+   }
+}
