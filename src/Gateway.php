@@ -18,7 +18,7 @@ use Omnipay\Common\AbstractGateway;
  *
  * Full example:
  *
- * <code>
+ * ```php
  *   // Create a gateway for the WorldPay Gateway
  *   // (routes to GatewayFactory::create)
  *   $gateway = Omnipay::create('\\lembdev\\WorldPay\\Gateway');
@@ -51,7 +51,7 @@ use Omnipay\Common\AbstractGateway;
  *
  *   $tokenResponse = $tokenTransaction->send();
  *   if (!$tokenResponse->isSuccessful()) {
- *       throw new Error($tokenResponse->getMessage());
+ *       throw new ErrorException($tokenResponse->getMessage());
  *   }
  *   $token = $tokenResponse->getToken();
  *
@@ -69,17 +69,15 @@ use Omnipay\Common\AbstractGateway;
  *   $response = $transaction->send();
  *   if ($response->isSuccessful()) {
  *       echo "Purchase transaction was successful!\n";
+ *
  *       $sale_id = $response->getTransactionReference();
- *       echo "Transaction reference = " . $sale_id . "\n";
+ *       echo "Transaction reference = {$sale_id}\n";
  *   }
- * </code>
+ * ```
  *
  * Test modes:
- *
  * Setting the testMode flag on this gateway has no effect.
  *
- * @see  \Omnipay\Common\AbstractGateway
- * @see  \lembdev\WorldPay\Message\AbstractRequest
  * @link https://developer.worldpay.com/jsonapi/api
  */
 class Gateway extends AbstractGateway
@@ -186,61 +184,64 @@ class Gateway extends AbstractGateway
         return $this->createRequest(CardFetchRequest::class, $parameters);
     }
 
-//    /**
-//     * Create an authorization request.
-//     *
-//     * To collect payment at a later time, first authorize a payment using the /payment resource.
-//     * You can then capture the payment to complete the sale and collect payment.
-//     *
-//     * @link https://developer.worldpay.com/jsonapi/docs/authorize-payment
-//     *
-//     * @param array $parameters
-//     *
-//     * @return \lembdev\WorldPay\Message\AuthorizeRequest
-//     */
-//    public function authorize(array $parameters = [])
-//    {
-//        return $this->createRequest(AuthorizeRequest::class, $parameters);
-//    }
-
-//    /**
-//     * Void an authorization.
-//     *
-//     * To to void a previously authorized payment.
-//     *
-//     * @link https://developer.worldpay.com/jsonapi/docs/authorize-payment
-//     *
-//     * @param array $parameters
-//     *
-//     * @return \lembdev\WorldPay\Message\VoidRequest
-//     */
-//    public function void(array $parameters = [])
-//    {
-//        return $this->createRequest(VoidRequest::class, $parameters);
-//    }
-
-//    /**
-//     * Capture an authorization.
-//     *
-//     * Use this resource to capture and process a previously created authorization.
-//     * To use this resource, the original payment call must have the intent set to
-//     * authorize.
-//     *
-//     * @link https://developer.worldpay.com/jsonapi/docs/authorize-payment
-//     *
-//     * @param array $parameters
-//     *
-//     * @return \lembdev\WorldPay\Message\CaptureRequest
-//     */
-//    public function capture(array $parameters = [])
-//    {
-//        return $this->createRequest(CaptureRequest::class, $parameters);
-//    }
+    /**
+     * @inheritdoc
+     * @throws \ErrorException
+     */
+    public function authorize(array $parameters = [])
+    {
+        throw new \ErrorException('Method not implemented');
+    }
 
     /**
-     * @param array $parameters
+     * @inheritdoc
+     * @throws \ErrorException
+     */
+    public function completeAuthorize(array $parameters = [])
+    {
+        throw new \ErrorException('Method not implemented');
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \ErrorException
+     */
+    public function completePurchase(array $parameters = [])
+    {
+        throw new \ErrorException('Method not implemented');
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \ErrorException
+     */
+    public function capture(array $parameters = [])
+    {
+        throw new \ErrorException('Method not implemented');
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \ErrorException
+     */
+    public function void(array $parameters = [])
+    {
+        throw new \ErrorException('Method not implemented');
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \ErrorException
+     */
+    public function updateCard(array $parameters = [])
+    {
+        throw new \ErrorException('Method not implemented');
+    }
+
+    /**
+     * @inheritdoc
      *
-     * @return @return RefundRequest|\Omnipay\Common\Message\AbstractRequest
+     * @return RefundRequest|\Omnipay\Common\Message\AbstractRequest
      */
     public function refund(array $parameters = [])
     {
