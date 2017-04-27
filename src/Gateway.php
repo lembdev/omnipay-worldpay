@@ -186,60 +186,6 @@ class Gateway extends AbstractGateway
 
     /**
      * @inheritdoc
-     * @throws \ErrorException
-     */
-    public function authorize(array $parameters = [])
-    {
-        throw new \ErrorException('Method not implemented');
-    }
-
-    /**
-     * @inheritdoc
-     * @throws \ErrorException
-     */
-    public function completeAuthorize(array $parameters = [])
-    {
-        throw new \ErrorException('Method not implemented');
-    }
-
-    /**
-     * @inheritdoc
-     * @throws \ErrorException
-     */
-    public function completePurchase(array $parameters = [])
-    {
-        throw new \ErrorException('Method not implemented');
-    }
-
-    /**
-     * @inheritdoc
-     * @throws \ErrorException
-     */
-    public function capture(array $parameters = [])
-    {
-        throw new \ErrorException('Method not implemented');
-    }
-
-    /**
-     * @inheritdoc
-     * @throws \ErrorException
-     */
-    public function void(array $parameters = [])
-    {
-        throw new \ErrorException('Method not implemented');
-    }
-
-    /**
-     * @inheritdoc
-     * @throws \ErrorException
-     */
-    public function updateCard(array $parameters = [])
-    {
-        throw new \ErrorException('Method not implemented');
-    }
-
-    /**
-     * @inheritdoc
      *
      * @return RefundRequest|\Omnipay\Common\Message\AbstractRequest
      */
