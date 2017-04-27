@@ -17,7 +17,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "lembdev/worldpay": "~2.0"
+        "lembdev/worldpay": "~1.1"
     }
 }
 ```
@@ -31,10 +31,9 @@ And run composer to update your dependencies:
 
 The following gateways are provided by this package:
 
-* WorldPay
+* \\lembdev\\WorldPay\\Gateway
 
-For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
-repository.
+For general usage instructions, please see our [wiki](https://github.com/lembdev/omnipay-worldpay/wiki) or the main [Omnipay](https://github.com/thephpleague/omnipay) repository
 
 ## Support
 

@@ -19,6 +19,11 @@
             "email": "lembdev@gmail.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/lembdev/omnipay-worldpay/issues?state=open",
+        "wiki": "https://github.com/lembdev/omnipay-worldpay/wiki",
+        "source": "https://github.com/lembdev/omnipay-worldpay"
+    },
     "require": {
         "php" : ">=5.5.0",
         "omnipay/common": "^2.5"
