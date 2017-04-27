@@ -6,15 +6,55 @@
 
 namespace lembdev\WorldPay\Message;
 
+/**
+ * WorldPay Purchase Request.
+ *
+ * ### Example
+ *
+ * ```php
+ *   // Create a gateway for the WorldPay Gateway
+ *   // (routes to GatewayFactory::create)
+ *   $gateway = Omnipay::create('\\lembdev\\WorldPay\\Gateway');
+ *
+ *   // Initialise the gateway
+ *   $gateway->initialize([
+ *       'serviceKey' => 'MyServiceKey',
+ *       'clientKey'  => 'MyClientKey',
+ *   ]);
+ *
+ *   // Do a refund transaction on the gateway
+ *   $transaction = $gateway->refund([
+ *       'orderCode'       => 'ORDER_CODE',
+ *       'refundAmount'    => 10.00
+ *   ]);
+ *
+ *   $response = $transaction->send();
+ *   if ($response->isSuccessful()) {
+ *       echo "Refund transaction was successful!\n";
+ *   } else {
+ *       echo $response->getMessage();
+ *   }
+ * ```
+ * @method RefundResponse send()
+ */
 class RefundRequest extends AbstractRequest
 {
     protected $endpointUri = '/orders';
 
+    /**
+     * @return string
+     */
     public function getOrderCode()
     {
         return $this->getParameter('orderCode');
     }
 
+    /**
+     * @param string $orderCode
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     * @throws \Omnipay\Common\Exception\RuntimeException
+     */
     public function setOrderCode($orderCode)
     {
         return $this->setParameter('orderCode', $orderCode);
@@ -29,7 +69,28 @@ class RefundRequest extends AbstractRequest
     {
         $this->validate('serviceKey', 'orderCode');
 
-        return null;
+        $refundAmount = $this->getRefundAmount();
+
+        return $refundAmount ? ['refundAmount' => (int)$refundAmount * 100] : null;
+    }
+
+    /**
+     * @param float|int $refundAmount
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     * @throws \Omnipay\Common\Exception\RuntimeException
+     */
+    public function setRefundAmount($refundAmount)
+    {
+        return $this->setParameter('refundAmount', $refundAmount);
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getRefundAmount()
+    {
+        return $this->getParameter('refundAmount');
     }
 
     /**
