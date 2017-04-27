@@ -29,8 +29,14 @@ class CardCreateResponse extends AbstractResponse
     use GetCardStartMonth;
     use GetCardStartYear;
 
+    /**
+     * @var CreditCard
+     */
     protected $creditCard;
 
+    /**
+     * @return null|CreditCard
+     */
     public function getCard()
     {
         if ($this->creditCard) {
