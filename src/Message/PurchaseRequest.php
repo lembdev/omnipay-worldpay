@@ -11,6 +11,66 @@ use lembdev\WorldPay\Helpers\CountryHelper;
 use Omnipay\Common\CreditCard;
 use Omnipay\Common\Exception\InvalidRequestException;
 
+/**
+ * WorldPay Purchase Request.
+ *
+ * ### Example
+ *
+ * ```php
+ *   // Create a gateway for the WorldPay Gateway
+ *   // (routes to GatewayFactory::create)
+ *   $gateway = Omnipay::create('\\lembdev\\WorldPay\\Gateway');
+ *
+ *   // Initialise the gateway
+ *   $gateway->initialize([
+ *       'serviceKey' => 'T_S_2addbca3-d0a5-486c-9f83-3d64b6c73288',
+ *       'clientKey'  => 'T_C_c27428cd-9005-4dd3-8f7e-734c06a79abd',
+ *   ]);
+ *
+ *   $cc = new CreditCard([
+ *       'name'        => 'EXAMPLE CUSTOMER',
+ *       'number'      => '4444 3333 2222 1111',
+ *       'expiryMonth' => 2,
+ *       'expiryYear'  => 2025,
+ *       'cvv'         => '123',
+ *       'address1'    => 'Street name',
+ *       'address2'    => 'optional address',
+ *       'city'        => 'Some City',
+ *       'postcode'    => '79016',
+ *       'state'       => 'Some State',
+ *       'country'     => 'USA',
+ *       'phone'       => '+12010001155',
+ *   ]);
+ *
+ *   $tokenTransaction = $gateway->createCard([
+ *       'card'     => $cc,
+ *       'reusable' => true,
+ *   ]);
+ *
+ *   $tokenResponse = $tokenTransaction->send();
+ *   if (!$tokenResponse->isSuccessful()) {
+ *       throw new ErrorException($tokenResponse->getMessage());
+ *   }
+ *   $token = $tokenResponse->getToken();
+ *
+ *   // Do a purchase transaction on the gateway
+ *   $transaction = $gateway->purchase([
+ *       'amount'      => '10.00',
+ *       'currency'    => 'USD',
+ *       'description' => 'Order description',
+ *       'token'       => $token
+ *   ]);
+ *
+ *   $response = $transaction->send();
+ *   if ($response->isSuccessful()) {
+ *       echo "Purchase transaction was successful!\n";
+ *       $sale_id = $response->getTransactionReference();
+ *       echo "Transaction reference = " . $sale_id . "\n";
+ *   }
+ * ```
+ *
+ * @method PurchaseResponse send()
+ */
 class PurchaseRequest extends AbstractRequest
 {
     protected $endpointUri = '/orders';

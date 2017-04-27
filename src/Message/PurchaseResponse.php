@@ -69,8 +69,14 @@ class PurchaseResponse extends AbstractResponse
     use GetBillingCity;
     use GetBillingCountry;
 
+    /**
+     * @var CreditCard
+     */
     protected $creditCard;
 
+    /**
+     * @return null|CreditCard
+     */
     public function getCard()
     {
         if ($this->creditCard) {
