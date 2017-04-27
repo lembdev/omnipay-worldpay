@@ -23,8 +23,8 @@ use Omnipay\Common\Exception\InvalidRequestException;
  *
  *   // Initialise the gateway
  *   $gateway->initialize([
- *       'serviceKey' => 'T_S_2addbca3-d0a5-486c-9f83-3d64b6c73288',
- *       'clientKey'  => 'T_C_c27428cd-9005-4dd3-8f7e-734c06a79abd',
+ *       'serviceKey' => 'MyServiceKey',
+ *       'clientKey'  => 'MyClientKey',
  *   ]);
  *
  *   $cc = new CreditCard([
@@ -63,9 +63,12 @@ use Omnipay\Common\Exception\InvalidRequestException;
  *
  *   $response = $transaction->send();
  *   if ($response->isSuccessful()) {
+ *       $orderCode = $response->getOrderCode();
+ *
  *       echo "Purchase transaction was successful!\n";
- *       $sale_id = $response->getTransactionReference();
- *       echo "Transaction reference = " . $sale_id . "\n";
+ *       echo "Order code = {$orderCode}\n";
+ *   } else {
+ *       echo $response->getMessage();
  *   }
  * ```
  *

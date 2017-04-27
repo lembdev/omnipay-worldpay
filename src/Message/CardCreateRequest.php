@@ -18,8 +18,8 @@ namespace lembdev\WorldPay\Message;
  *
  *   // Initialise the gateway
  *   $gateway->initialize([
- *       'serviceKey' => 'T_S_2addbca3-d0a5-486c-9f83-3d64b6c73288',
- *       'clientKey'  => 'T_C_c27428cd-9005-4dd3-8f7e-734c06a79abd',
+ *       'serviceKey' => 'MyServiceKey',
+ *       'clientKey'  => 'MyClientKey',
  *   ]);
  *
  *   // Create a credit card object
@@ -47,6 +47,8 @@ namespace lembdev\WorldPay\Message;
  *       echo "Credit Card token = {$cardToken}\n";
  *
  *       $cardDetails = $response->getCard();
+ *   } else {
+ *       echo $response->getMessage();
  *   }
  * ```
  *

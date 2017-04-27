@@ -81,8 +81,8 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
      * of an embedded object. In particular, if the key is `x.y.z`, then the returned value would
      * be `$array['x']['y']['z']`
      *
-     * @param string     $key     name of the array element
-     * @param mixed      $default the default value to be returned if the specified array key does not exist.
+     * @param string $key     name of the array element
+     * @param mixed  $default the default value to be returned if the specified array key does not exist.
      *
      * @return mixed|null
      */
@@ -99,6 +99,13 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         }
     }
 
+    /**
+     * @param string     $key
+     * @param array|null $array
+     *
+     * @return mixed
+     * @throws ErrorException
+     */
     protected function retrieveResponseKey($key, array $array = null)
     {
         $array = $array ?: $this->data;
