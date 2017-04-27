@@ -49,9 +49,7 @@ class PurchaseRequestTest extends TestCase
 
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
-
         $this->assertSame('TEST_RU_1239706c-7d15-4819-89cc-b409390a63e9', $response->getToken());
-
         $this->assertEquals(500, $response->getAmount());
         $this->assertEquals(2, $response->getCard()->getExpiryMonth());
         $this->assertEquals(2015, $response->getCard()->getExpiryYear());
@@ -83,9 +81,7 @@ class PurchaseRequestTest extends TestCase
 
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
-
         $this->assertSame('TEST_RU_1239706c-7d15-4819-89cc-b409390a63e9', $response->getToken());
-
         $this->assertEquals(500, $response->getAmount());
         $this->assertEquals(2, $response->getCard()->getExpiryMonth());
         $this->assertEquals(2020, $response->getCard()->getExpiryYear());

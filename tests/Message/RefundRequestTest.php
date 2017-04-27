@@ -30,6 +30,16 @@ class RefundRequestTest extends TestCase
         $this->assertFalse($response->isRedirect());
     }
 
+    public function testPartiallyRefundingSuccess()
+    {
+        $this->setMockHttpResponse('RefundSuccess.txt');
+        $this->request->setRefundAmount(10.0);
+        $response = $this->request->send();
+
+        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+    }
+
     public function testSendFail()
     {
         $this->setMockHttpResponse('RefundFail.txt');
