@@ -7,7 +7,36 @@
 namespace lembdev\WorldPay\Message;
 
 /**
- * Class CardFetchRequest
+ * WorldPay Delete Credit Card Request.
+ *
+ * Token details can be obtained by sending a get request.
+ *
+ * ### Example
+ *
+ * ```php
+ *   // (routes to GatewayFactory::create)
+ *   $gateway = Omnipay::create('\\lembdev\\WorldPay\\Gateway');
+ *
+ *   // Initialise the gateway
+ *   $gateway->initialize([
+ *       'serviceKey' => 'T_S_2addbca3-d0a5-486c-9f83-3d64b6c73288',
+ *       'clientKey'  => 'T_C_c27428cd-9005-4dd3-8f7e-734c06a79abd',
+ *   ]);
+ *
+ *   // Do a create card transaction on the gateway
+ *   $response = $gateway->fetchCard([
+ *       'token' => 'CARD_TOKEN',
+ *   ])->send();
+ *
+ *   if ($response->isSuccessful()) {
+ *       echo "Gateway createCard was successful.\n";
+ *
+ *       $cardToken = $response->getToken();
+ *       echo "Credit Card token = {$cardToken}\n";
+ *
+ *       $cardDetails = $response->getCard();
+ *   }
+ * ```
  *
  * @method CardFetchResponse send()
  */
