@@ -71,7 +71,7 @@ class RefundRequest extends AbstractRequest
 
         $refundAmount = $this->getRefundAmount();
 
-        return $refundAmount ? ['refundAmount' => (int)$refundAmount * 100] : null;
+        return $refundAmount ? ['refundAmount' => $refundAmount * 100] : null;
     }
 
     /**

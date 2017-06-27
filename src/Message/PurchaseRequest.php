@@ -153,7 +153,7 @@ class PurchaseRequest extends AbstractRequest
             'billingAddress'      => $billingAddress ?: null,
             'deliveryAddress'     => $deliveryAddress ?: null,
             'orderType'           => $this->getOrderType(),
-            'amount'              => (int)$this->getAmount() * 100,
+            'amount'              => $this->getAmount() * 100,
             'currencyCode'        => $this->getCurrency(),
             'orderDescription'    => $this->getDescription(),
             'settlementCurrency'  => $this->getCurrency(),
