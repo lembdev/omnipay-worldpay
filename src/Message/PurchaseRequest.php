@@ -126,6 +126,30 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
+     * Get the code under which this order is known in your system
+     *
+     * @return string
+     */
+    public function getOrderCode()
+    {
+        return $this->getParameter('orderCode');
+    }
+
+
+    /**
+     * Set the code under which this order is known in your system
+     *
+     * @param string $code
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     * @throws \Omnipay\Common\Exception\RuntimeException
+     */
+    public function setOrderCode($code)
+    {
+        return $this->setParameter('orderCode', $code);
+    }
+
+    /**
      * @inheritdoc
      * @return array
      * @throws \Guzzle\Common\Exception\InvalidArgumentException
@@ -158,7 +182,7 @@ class PurchaseRequest extends AbstractRequest
             'orderDescription'    => $this->getDescription(),
             'settlementCurrency'  => $this->getCurrency(),
             'name'                => $this->getCard()->getName(),
-            'customerOrderCode'   => null, // TODO
+            'customerOrderCode'   => $this->getOrderCode(),
             'shopperEmailAddress' => null, // TODO
             'shopperIpAddress'    => $this->getClientIpAddress(),
             'shopperSessionId'    => null, // TODO
@@ -176,7 +200,7 @@ class PurchaseRequest extends AbstractRequest
                 'startMonth'  => $this->getCard()->getStartMonth(),
                 'startYear'   => $this->getCard()->getStartYear(),
                 'cardNumber'  => $this->getCard()->getNumber(),
-                'cvc'         => $this->getCard()->getCvv()
+                'cvc'         => $this->getCard()->getCvv(),
             ]);
         }
 
